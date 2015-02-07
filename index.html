@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preloader Demo</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+    <script src="js/Preloader.js"></script>
+
+    <script>
+    var preloader=null;
+
+    $(document).ready(function(){
+        preloader=new Preloader({
+            images: [
+                'assets/images/1.jpg',
+                'assets/images/2.jpg',
+                'assets/images/3.png',
+                'assets/images/4.jpg',
+                'assets/images/5.jpg'
+            ],
+            audios: [
+                'assets/audios/1.mp3',
+                'assets/audios/2.mp3'
+            ],
+            onComplete: function(assets){
+                testImages(assets.images);
+            }
+        });
+    });
+
+
+
+
+    function testImages(images){
+        var $testImage=$('<div>');
+        var index=0;
+
+        var setImage=function(){
+            $testImage.css({
+                width: 200,
+                height: 150,
+                backgroundImage: 'url('+images[index].src+')',
+                backgroundSize: 'cover'
+            });
+        }
+
+        setImage();
+
+        $testImage.on('click', function(){
+            index++;
+            if(index > images.length-1){
+                index=0;
+            }
+            setImage();
+        });
+
+        $('body').append($testImage);
+    }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
